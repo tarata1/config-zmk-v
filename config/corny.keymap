@@ -1,0 +1,139 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+
+&mt { flavor = "tap-preferred"; };
+
+/ {
+    combos {
+        compatible = "zmk,combos";
+
+        eisuu {
+            bindings = <&kp LANGUAGE_2>;
+            key-positions = <15 16>;
+        };
+
+        pa {
+            bindings = <&pa>;
+            key-positions = <36 37>;
+        };
+
+        login {
+            bindings = <&login>;
+            key-positions = <22 23>;
+        };
+
+        kana {
+            bindings = <&kp LANGUAGE_1>;
+            key-positions = <20 19>;
+        };
+
+        mail {
+            bindings = <&mail>;
+            key-positions = <10 11>;
+        };
+
+        to-tenkey {
+            bindings = <&tog 3>;
+            key-positions = <38 39 40>;
+        };
+
+        back-to-tenkey {
+            bindings = <&tog 0>;
+            key-positions = <41 42 43>;
+        };
+    };
+
+    macros {
+        pa: pa {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp N1 &kp N1 &kp N1 &kp N1 &kp N1 &kp N1 &kp N1 &kp N1 &kp LS(A) &kp A>;
+            label = "PA";
+        };
+
+        login: login {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp T &kp DOT &kp N &kp A &kp K &kp A &kp N &kp O &kp DOT &kp F &kp N8 &kp X>;
+            label = "LOGIN";
+        };
+
+        mail: mail {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp T &kp DOT &kp N &kp A &kp K &kp A &kp N &kp O &kp DOT &kp F &kp N8 &kp X &kp AT &kp T &kp O &kp K &kp Y &kp O &kp M &kp E &kp T &kp R &kp O &kp DOT &kp J &kp P>;
+            label = "MAIL";
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            // -------------------------------------------------------------------------------------------------
+            // |  TAB |  Q  |  W  |  E  |  R  |  T  |                    |  Y  |  U   |  I  |  O  |  P  | BKSP |
+            // | CTRL |  A  |  S  |  D  |  F  |  G  |                    |  H  |  J   |  K  |  L  |  ;  |  '   |
+            // | SHFT |  Z  |  X  |  C  |  V  |  B  |  MUTE  |  |        |  N  |  M   |  ,  |  .  |  /  | ESC  |
+            //                    | GUI | LWR | SPC |                    | ENT | RSE  | ALT |
+
+            bindings = <
+&kp ESC        &kp Q               &kp W  &kp E         &kp R        &kp T                            &kp Y                      &kp U        &kp I          &kp O    &kp P     &kp MINUS
+&kp LEFT_GUI   &mt LEFT_GUI A      &kp S  &kp D         &kp F        &kp G                            &kp H                      &kp J        &kp K          &kp L    &kp SEMI  &kp COLON
+&mt RCTRL TAB  &mt LEFT_CONTROL Z  &kp X  &kp C         &kp V        &kp B              &mo 2  &mo 1  &kp N                      &kp M        &kp COMMA      &kp DOT  &kp FSLH  &kp BACKSLASH
+                                          &kp LEFT_ALT  &lt 2 SPACE  &mt RSHIFT DELETE                &mt RIGHT_SHIFT BACKSPACE  &lt 1 ENTER  &mt RCTRL TAB
+            >;
+
+            sensor-bindings =
+                <&inc_dec_kp C_AC_UNDO C_AC_REDO>,
+                <&inc_dec_kp DOWN_ARROW UP_ARROW>;
+        };
+
+        lower_layer {
+            // ------------------------------------------------------------------------------------------------
+            // |  TAB |  1  |  2  |  3  |  4  |  5  |                    |  6  |  7  |  8  |  9  |  0  | BKSP |
+            // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |                    | LFT | DWN |  UP | RGT |     |  F12 |
+            // | SHFT | F1  | F2  | F3  | F4  | F5  |  boot  |  |        |  F6 | F7  | F8  | F9  | F10 |  F11 |
+            //                    | GUI |     | SPC |                    | ENT |     | ALT |
+
+            bindings = <
+&trans  &kp N1    &kp N2     &kp N3        &kp N4     &kp N5                        &kp N6    &kp N7    &kp N8    &kp N9        &kp N0     &trans
+&trans  &kp PLUS  &kp MINUS  &kp ASTERISK  &kp SLASH  &kp EQUAL                     &kp HOME  &kp LEFT  &kp DOWN  &kp UP_ARROW  &kp RIGHT  &kp END
+&trans  &kp F1    &kp F2     &kp F3        &kp F4     &kp F5     &kp K_MUTE  &none  &kp F6    &kp F7    &kp F8    &kp F9        &kp F10    &kp F11
+                             &trans        &trans     &trans                        &trans    &trans    &trans
+            >;
+
+            sensor-bindings =
+                <&inc_dec_kp C_VOL_DN C_VOL_UP>,
+                <&inc_dec_kp LEFT_ARROW RIGHT_ARROW>;
+        };
+
+        raise_layer {
+            // ------------------------------------------------------------------------------------------------
+            // |  TAB |  !  |  @  |  #  |  $  |  %  |                    |  ^  |  &  |  *  |  (  |  )  | BKSP |
+            // | CTRL |     |     |     |     |     |                    |  -  |  =  |  [  |  ]  |  \  |  `   |
+            // | SHFT |     |     |     |     |     |        |  |  boot  |  _  |  +  |  {  |  }  | "|" |  ~   |
+            //                    | GUI |     | SPC |                    | ENT |     | ALT |
+
+            bindings = <
+&trans         &kp EXCL          &kp AT          &kp HASH          &kp DLLR              &kp PRCNT                              &kp CARET          &kp AMPS               &kp UNDER             &kp PLUS                  &kp ASTERISK      &kp EQUAL
+&kp LESS_THAN  &kp SINGLE_QUOTE  &kp LEFT_BRACE  &kp LEFT_BRACKET  &kp LEFT_PARENTHESIS  &kp DOUBLE_QUOTES                      &kp DOUBLE_QUOTES  &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACKET     &kp RIGHT_BRACE           &kp SINGLE_QUOTE  &kp GREATER_THAN
+&bt BT_CLR     &bt BT_SEL 0      &bt BT_SEL 1    &bt BT_SEL 2      &bt BT_SEL 3          &bt BT_SEL 4       &none  &bootloader  &kp PRINTSCREEN    &kp PAUSE_BREAK        &kp C_AL_TEXT_EDITOR  &kp C_AL_GRAPHICS_EDITOR  &kp PIPE          &kp TILDE
+                                                 &trans            &trans                &trans                                 &trans             &trans                 &trans
+            >;
+
+            sensor-bindings =
+                <&inc_dec_kp LA(LEFT_ARROW) LA(RIGHT_ARROW)>,
+                <&inc_dec_kp PAGE_DOWN PAGE_UP>;
+        };
+
+        layer_3 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &kp N7  &kp N8   &kp N9  &kp KP_MINUS  &kp SLASH
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &kp N4  &kp N5   &kp N6  &kp PLUS      &kp ASTERISK
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &kp N1  &kp N2   &kp N3  &kp ENTER     &trans
+                        &trans  &trans  &trans                  &trans  &kp N0  &kp DOT
+            >;
+        };
+    };
+};
