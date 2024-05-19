@@ -37,32 +37,27 @@
             bindings = <&tog 3>;
             key-positions = <38 39 40>;
         };
-
-        back-to-tenkey {
-            bindings = <&tog 0>;
-            key-positions = <41 42 43>;
-        };
     };
 
     macros {
         pa: pa {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp N1 &kp N1 &kp N1 &kp N1 &kp N1 &kp N1 &kp N1 &kp N1 &kp LS(A) &kp A>;
+            bindings = <&kp P &kp A &kp S &kp W &kp A &kp R &kp D>;
             label = "PA";
         };
 
         login: login {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp T &kp DOT &kp N &kp A &kp K &kp A &kp N &kp O &kp DOT &kp F &kp N8 &kp X>;
+            bindings = <&kp L &kp O &kp G &kp I &kp N &kp I &kp D>;
             label = "LOGIN";
         };
 
         mail: mail {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp T &kp DOT &kp N &kp A &kp K &kp A &kp N &kp O &kp DOT &kp F &kp N8 &kp X &kp AT &kp T &kp O &kp K &kp Y &kp O &kp M &kp E &kp T &kp R &kp O &kp DOT &kp J &kp P>;
+            bindings = <&kp M &kp A &kp I &kp L &kp AT &kp M &kp A &kp I &kp L &kp DOT &kp J &kp P>;
             label = "MAIL";
         };
     };
